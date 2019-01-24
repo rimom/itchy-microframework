@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author rimom.costa <rimomcosta@gmail.com>
  * Date: 2019-01-24

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author rimom.costa <rimomcosta@gmail.com>
  * Date: 2019-01-24
@@ -41,8 +41,9 @@ class RouterEngine
 
     /**
      * @param string $route_file
+     * @throws \Exception
      */
-    public function load(string $route_file): void
+    public function init(string $route_file): void
     {
         require $route_file;
         $this->direct();
@@ -88,7 +89,7 @@ class RouterEngine
      * @param string $namespace
      * @param callable $closure
      */
-    public function group(string $namespace, callable $closure): void
+    protected function group(string $namespace, callable $closure): void
     {
         $router = new RouterEngine($this->request, $this->response);
         $router->setNamespace($namespace);
@@ -99,7 +100,7 @@ class RouterEngine
     /**
      * @param string $namespace
      */
-    public function setNamespace(string $namespace): void
+    protected function setNamespace(string $namespace): void
     {
         $this->namespace = $namespace;
     }
@@ -109,7 +110,7 @@ class RouterEngine
      * @param string $path
      * @return string
      */
-    public function match(string $method, string $path): string
+    protected function match(string $method, string $path): bool
     {
         return isset($this->routes[$method][$path]);
     }
@@ -118,7 +119,7 @@ class RouterEngine
      * @return string|void
      * @throws \Exception
      */
-    public function direct()
+    protected function direct()
     {
         $uri = $this->request->getUri();
         $requestMethod = $this->request->method();
@@ -142,36 +143,6 @@ class RouterEngine
     }
 
     /**
-     * @param string $controller
-     * @param string $action
-     * @return string
-     * @throws \ReflectionException
-     */
-    protected function requestAction(string $controller, string $action): string
-    {
-        $controllerClass = new \ReflectionClass($this->namespace . '\\' . $controller);
-        $parametersToCall = [];
-        $parameters = $controllerClass->getMethod($action)->getParameters();
-        foreach ($parameters as $parameterObject) {
-            if ($parameterObject->getClass() && $parameterObject->getClass()->getName() === Request::class) {
-                $parametersToCall[] = $this->request;
-            }
-            if ($parameterObject->getClass() && $parameterObject->getClass()->getName() === Response::class) {
-                $parametersToCall[] = $this->response;
-            }
-        };
-
-        $parametersToCall[] = array_merge($parametersToCall, $this->args);
-        $controller = $controllerClass->newInstanceArgs();
-
-        if (method_exists($controller, $action)) {
-            return $controller->$action(...$parametersToCall);
-        }
-
-        throw new \Exception(self::CONTROLLER_OR_ACTION_NOT_DEFINED);
-    }
-
-    /**
      * @param array $uri
      */
     protected function extractArguments(array $uri): void
@@ -182,6 +153,52 @@ class RouterEngine
         foreach ($uri as $value) {
             $this->args[] = $value;
         }
+    }
+
+    /**
+     * @param string $controller
+     * @param string $action
+     * @return string
+     * @throws \ReflectionException
+     */
+    protected function requestAction(string $controller, string $action)
+    {
+        list($argsToInject, $controller) = $this->InjectArgs($controller, $action);
+
+        if (method_exists($controller, $action)) {
+            return $controller->$action(...$argsToInject);
+        }
+
+        throw new \Exception(self::CONTROLLER_OR_ACTION_NOT_DEFINED);
+    }
+
+    /**
+     * inject Request, Response and Parameters in the controller methods
+     * @param string $controller
+     * @param string $action
+     * @return array
+     * @throws \ReflectionException
+     */
+    protected function InjectArgs(string $controller, string $action): array
+    {
+        $controllerClass = new \ReflectionClass($this->namespace . '\\' . $controller);
+        $argsToInject = [];
+        
+        $parameters = $controllerClass->getMethod($action)->getParameters();
+
+        foreach ($parameters as $parameterObject) {
+            if ($parameterObject->getClass() && $parameterObject->getClass()->getName() === Request::class) {
+                $argsToInject[] = $this->request;
+            }
+            if ($parameterObject->getClass() && $parameterObject->getClass()->getName() === Response::class) {
+                $argsToInject[] = $this->response;
+            }
+        };
+
+        $argsToInject[] = $this->args;
+        $controller = $controllerClass->newInstanceArgs();
+
+        return array($argsToInject, $controller);
     }
 
 }

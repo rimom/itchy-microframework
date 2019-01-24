@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author rimom.costa <rimomcosta@gmail.com>
  * Date: 2019-01-24
@@ -12,9 +12,9 @@ class Response
     /**
      * @param string $viewName
      * @param array $data
-     * @return string
+     * @return mixed
      */
-    function render(string $viewName, array $data = []): string
+    function render(string $viewName, array $data = [])
     {
         extract($data);
         return require __DIR__ . "/../App/Views/{$viewName}.view.php";

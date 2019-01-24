@@ -20,4 +20,4 @@ Container::attach('Database', new Queries(
 $router = new RouterEngine(
     new Request(),
     new Response());
-$router->load(__DIR__ . '/../App/routes.php');
+$router->init(__DIR__ . '/../App/routes.php');

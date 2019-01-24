@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author rimom.costa <rimomcosta@gmail.com>
  * Date: 2019-01-24
@@ -35,7 +35,7 @@ class Employee
     /**
      * @return int
      */
-    public function getAge(): int
+    public function getAge(): string
     {
         return $this->age;
     }
@@ -44,7 +44,7 @@ class Employee
      * @param int $age
      * @return Employee
      */
-    public function setAge(int $age): self
+    public function setAge(string $age): self
     {
         $this->age = $age;
 

@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author rimom.costa <rimomcosta@gmail.com>
  * Date: 2019-01-24
@@ -14,9 +14,10 @@ class PagesController
 {
     /**
      * @param Response $response
-     * @return string
+     * @return mixed
+     * @throws \Exception
      */
-    public function index(Response $response): string
+    public function index(Response $response)
     {
         $collection = new EmployeeRepository();
         $employees = $collection->getAll();
@@ -26,12 +27,18 @@ class PagesController
 
     /**
      * @param Response $response
-     * @return string
+     * @return mixed
      */
-    public function notFound(Response $response): string
+    public function notFound(Response $response)
     {
 
         return $response->render('notFound');
+    }
+
+    public function test($args)
+    {
+        echo '<pre>It is just a test to get arguments from the URL: ';
+        print_r($args);
     }
 
 }

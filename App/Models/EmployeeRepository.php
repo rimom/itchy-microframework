@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author rimom.costa <rimomcosta@gmail.com>
  * Date: 2019-01-24
@@ -44,7 +44,7 @@ class EmployeeRepository
      * @return EmployeeRepository
      * @throws \Exception
      */
-    public function remove(int $id): self
+    public function remove(string $id): self
     {
         Container::get('Database')->remove('exads_test', $id);
 

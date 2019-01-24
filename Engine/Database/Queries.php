@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author rimom.costa <rimomcosta@gmail.com>
  * Date: 2019-01-24
@@ -62,7 +62,7 @@ class Queries
      * @param int $id
      * @return bool
      */
-    public function remove(string $table, int $id): bool
+    public function remove(string $table, string $id): bool
     {
         $sql = "DELETE FROM $table WHERE id = :id";
 

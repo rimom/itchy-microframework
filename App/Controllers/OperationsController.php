@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 /**
  * @author rimom.costa <rimomcosta@gmail.com>
  * Date: 2019-01-24
@@ -17,6 +17,7 @@ class OperationsController
     /**
      * @param Request $request
      * @param Response $response
+     * @throws \Exception
      */
     public function save(Request $request, Response $response): void
     {
@@ -33,6 +34,7 @@ class OperationsController
     /**
      * @param Request $request
      * @param Response $response
+     * @throws \Exception
      */
     public  function remove(Request $request, Response $response): void
     {
