@@ -8,8 +8,8 @@
 
 developed under php 7.3 and nginx
 
-## Entriy point: /public/index.php
-## Demo database on /setup/createSampleDb.sql
+### Entriy point: /public/index.php
+### Demo database on /setup/createSampleDb.sql
 
 ## Important: The classes `Request` and `Response` are just a place holder, they have to be implemented following PSR-7
 
