@@ -1,6 +1,6 @@
 # itchy-microframework
 
-##This is a simple framework under development, don't use it in production!
+## This is a simple framework under development, don't use it in production!
 
 **The structure is divided in 2 parts:**
 1. /App - Web application
