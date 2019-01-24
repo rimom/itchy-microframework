@@ -7,6 +7,7 @@
 2. /Engine - Framework itself
 
 developed under php 7.3 and nginx
+Don't forget to run ```composer install```
 
 ### Entriy point: /public/index.php
 ### Demo database on /setup/createSampleDb.sql
