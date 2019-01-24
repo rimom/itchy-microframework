@@ -17,7 +17,7 @@ Don't forget to run ```composer install```, developed under php 7.3 and nginx
 
 ### TODO IN ORDER:
 
-1. Write Unit test for All classes **<-Actual step**
+1. Write Unit test for All classes **<-Current step**
 2. Fix localhost loop
 3. Make sure that the code follow SOLID principles
 4. Implement a library for input validations
