@@ -6,8 +6,7 @@
 1. /App - Web application
 2. /Engine - Framework itself
 
-developed under php 7.3 and nginx
-Don't forget to run ```composer install```
+Don't forget to run ```composer install```, developed under php 7.3 and nginx
 
 ### Entriy point: /public/index.php
 ### Demo database on /setup/createSampleDb.sql
