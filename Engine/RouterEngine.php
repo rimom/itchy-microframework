@@ -163,7 +163,7 @@ class RouterEngine
      */
     protected function requestAction(string $controller, string $action)
     {
-        list($argsToInject, $controller) = $this->InjectArgs($controller, $action);
+        list($argsToInject, $controller) = $this->injectArgs($controller, $action);
 
         if (method_exists($controller, $action)) {
             return $controller->$action(...$argsToInject);
@@ -179,7 +179,7 @@ class RouterEngine
      * @return array
      * @throws \ReflectionException
      */
-    protected function InjectArgs(string $controller, string $action): array
+    protected function injectArgs(string $controller, string $action): array
     {
         $controllerClass = new \ReflectionClass($this->namespace . '\\' . $controller);
         $argsToInject = [];
