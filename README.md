@@ -11,7 +11,7 @@ Don't forget to run ```composer install```, developed under php 7.3 and nginx
 ### Entry point: /public/index.php
 ### Demo database on /setup/createSampleDb.sql
 
-## Important: The classes `Request` and `Response` are just a place holder, they have to be implemented following PSR-7
+## Important: The classes `Request` and `Response` are just a placeholders, they have to be implemented following PSR-7
 
 
 
@@ -19,7 +19,7 @@ Don't forget to run ```composer install```, developed under php 7.3 and nginx
 
 1. Write Unit test for All classes **<-Current step**
 2. Fix localhost loop
-3. Make sure that the code follow SOLID principles
+3. Make sure that the classes follow SOLID principles
 4. Implement a library for input validations
 5. Implement a template manager **(Twig)**
 6. Implement HTTP Message following PSR-7
